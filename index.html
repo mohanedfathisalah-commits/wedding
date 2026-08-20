@@ -10,6 +10,7 @@
     <!-- =====================================================
          GOOGLE FONTS
     ====================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
@@ -87,22 +88,20 @@
      FLOATING WEDDING DECORATIONS
 ====================================================== -->
 
-<div class="floating-decorations">
+    <div class="floating-decorations">
+      <span class="floating-heart heart-1">♡</span>
+      <span class="floating-heart heart-2">♥</span>
+      <span class="floating-heart heart-3">♡</span>
+      <span class="floating-heart heart-4">♥</span>
+      <span class="floating-heart heart-5">♡</span>
 
-    <span class="floating-heart heart-1">♡</span>
-    <span class="floating-heart heart-2">♥</span>
-    <span class="floating-heart heart-3">♡</span>
-    <span class="floating-heart heart-4">♥</span>
-    <span class="floating-heart heart-5">♡</span>
-
-    <span class="floating-star star-1">✦</span>
-    <span class="floating-star star-2">✧</span>
-    <span class="floating-star star-3">✦</span>
-    <span class="floating-star star-4">✧</span>
-    <span class="floating-star star-5">✦</span>
-    <span class="floating-star star-6">✧</span>
-
-</div>
+      <span class="floating-star star-1">✦</span>
+      <span class="floating-star star-2">✧</span>
+      <span class="floating-star star-3">✦</span>
+      <span class="floating-star star-4">✧</span>
+      <span class="floating-star star-5">✦</span>
+      <span class="floating-star star-6">✧</span>
+    </div>
 
     <!-- =====================================================
          WEBSITE
@@ -319,101 +318,52 @@
         ================================================== -->
 
       <section id="details" class="details">
+        <div class="section-container">
+          <p class="section-label">SAVE THE DATE</p>
 
-    <div class="section-container">
+          <h2>Wedding Details</h2>
 
-        <p class="section-label">
-            SAVE THE DATE
-        </p>
+          <div class="section-ornament">✦</div>
 
-        <h2>
-            Wedding Details
-        </h2>
-
-        <div class="section-ornament">
-            ✦
-        </div>
-
-
-        <div class="details-grid">
-
-
+          <div class="details-grid">
             <!-- CEREMONY -->
 
             <div class="detail-card">
+              <div class="detail-icon">♡</div>
 
-                <div class="detail-icon">
-                    ♡
-                </div>
+              <h3>Ceremony</h3>
 
-                <h3>
-                    Ceremony
-                </h3>
+              <p>7:00 PM</p>
 
-                <p>
-                    7:00 PM
-                </p>
-
-                <span>
-                    The celebration begins
-                </span>
-
+              <span> The celebration begins </span>
             </div>
-
-
 
             <!-- TIE THE KNOT -->
 
             <div class="detail-card">
+              <div class="detail-icon">💍</div>
 
-                <div class="detail-icon">
-                    💍
-                </div>
+              <h3>Tie the Knot</h3>
 
-                <h3>
-                    Tie the Knot
-                </h3>
+              <p>7:30 PM</p>
 
-                <p>
-                    7:30 PM
-                </p>
-
-                <span>
-                    We say "I do" and begin forever
-                </span>
-
+              <span> We say "I do" and begin forever </span>
             </div>
-
-
 
             <!-- END -->
 
             <div class="detail-card">
+              <div class="detail-icon">✨</div>
 
-                <div class="detail-icon">
-                    ✨
-                </div>
+              <h3>Celebration</h3>
 
-                <h3>
-                    Celebration
-                </h3>
+              <p>Until Late</p>
 
-                <p>
-                    Until Late
-                </p>
-
-                <span>
-                    Dinner, dancing & memories
-                </span>
-
+              <span> Dinner, dancing & memories </span>
             </div>
-
-
+          </div>
         </div>
-
-    </div>
-
-</section>
+      </section>
 
       <!-- =================================================
              LOCATION
@@ -529,7 +479,7 @@
              RSVP
         ================================================== -->
 
-      <section class="rsvp">
+      <!-- <section class="rsvp">
         <div class="section-container">
           <p class="section-label">WE WOULD LOVE TO SEE YOU</p>
 
@@ -542,6 +492,37 @@
           </p>
 
           <button class="rsvp-button" onclick="showRSVP()">RSVP</button>
+        </div>
+      </section> -->
+
+      <!-- =====================================================
+     INVITATION BOOK / GUEST MESSAGES
+====================================================== -->
+
+      <section class="guest-book" id="guestBook">
+        <div class="guest-boook section-container">
+          <p class="section-label">FROM OUR GUESTS</p>
+
+          <h2>Our Invitation Book ♡</h2>
+
+          <p class="guest-book-intro">
+            Leave us a little message that we can keep as a memory of our
+            special day.
+          </p>
+
+          <!-- BOOK -->
+
+          <div class="invitation-book">
+            <div class="book-spine"></div>
+
+            <div id="guestMessages" class="guest-messages">
+              <!-- Messages will appear here -->
+            </div>
+          </div>
+
+          <button class="rsvp-button book-button" onclick="showRSVP()">
+            WRITE IN OUR BOOK
+          </button>
         </div>
       </section>
 
@@ -587,12 +568,12 @@
             <option value="no">Sorry, I can't attend</option>
           </select>
 
-          <input
+          <!-- <input
             type="number"
             min="1"
             placeholder="Number of Guests"
             required
-          />
+          /> -->
 
           <textarea placeholder="A message for us..." rows="4"></textarea>
 
