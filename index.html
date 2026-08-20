@@ -1,590 +1,1397 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
 
-    <title>Mohamed & Sara | Wedding</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Mohamed & Sara | Wedding
+    </title>
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
     <!-- =====================================================
          GOOGLE FONTS
     ====================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Open+Sans:wght@300;400;500&family=Pinyon+Script&display=swap"
-      rel="stylesheet"
-    />
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-    <!-- CSS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Open+Sans:wght@300;400;500&family=Pinyon+Script&display=swap"
+        rel="stylesheet"
+    >
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
     <!-- =====================================================
          BACKGROUND MUSIC
     ====================================================== -->
 
-    <audio id="backgroundMusic" loop preload="auto">
-      <source src="assets/wedding-music.mp3" type="audio/mpeg" />
+    <audio
+        id="backgroundMusic"
+        loop
+        preload="auto"
+    >
+
+        <source
+            src="assets/wedding-music.mp3"
+            type="audio/mpeg"
+        >
+
     </audio>
+
 
     <!-- =====================================================
          MUSIC BUTTON
     ====================================================== -->
 
     <button
-      id="musicButton"
-      class="music-button visible"
-      aria-label="Toggle music"
+        id="musicButton"
+        class="music-button visible"
+        aria-label="Toggle music"
     >
-      🔇
+        🔇
     </button>
+
 
     <!-- =====================================================
          THEME TESTER
          CLOSED BY DEFAULT
     ====================================================== -->
 
-    <aside id="themeTester" class="theme-tester hidden">
-      <div class="theme-header">
-        <div>
-          <h3>Theme Tester</h3>
+    <aside
+        id="themeTester"
+        class="theme-tester hidden"
+    >
 
-          <p>Developer only</p>
+        <div class="theme-header">
+
+            <div>
+
+                <h3>
+                    Theme Tester
+                </h3>
+
+                <p>
+                    Developer only
+                </p>
+
+            </div>
+
+
+            <button
+                id="themeClose"
+                class="theme-close"
+                aria-label="Close theme tester"
+            >
+                ×
+            </button>
+
         </div>
 
-        <button
-          id="themeClose"
-          class="theme-close"
-          aria-label="Close theme tester"
-        >
-          ×
-        </button>
-      </div>
 
-      <div id="themeList" class="theme-list"></div>
+        <div
+            id="themeList"
+            class="theme-list"
+        ></div>
+
     </aside>
+
 
     <!-- =====================================================
          THEME OPEN BUTTON
     ====================================================== -->
 
     <button
-      id="themeOpen"
-      class="theme-open visible"
-      aria-label="Open theme tester"
+        id="themeOpen"
+        class="theme-open visible"
+        aria-label="Open theme tester"
     >
-      🎨
+        🎨
     </button>
 
+
     <!-- =====================================================
-     FLOATING WEDDING DECORATIONS
-====================================================== -->
+         FLOATING WEDDING DECORATIONS
+    ====================================================== -->
 
     <div class="floating-decorations">
-      <span class="floating-heart heart-1">♡</span>
-      <span class="floating-heart heart-2">♥</span>
-      <span class="floating-heart heart-3">♡</span>
-      <span class="floating-heart heart-4">♥</span>
-      <span class="floating-heart heart-5">♡</span>
 
-      <span class="floating-star star-1">✦</span>
-      <span class="floating-star star-2">✧</span>
-      <span class="floating-star star-3">✦</span>
-      <span class="floating-star star-4">✧</span>
-      <span class="floating-star star-5">✦</span>
-      <span class="floating-star star-6">✧</span>
+        <span class="floating-heart heart-1">
+            ♡
+        </span>
+
+        <span class="floating-heart heart-2">
+            ♥
+        </span>
+
+        <span class="floating-heart heart-3">
+            ♡
+        </span>
+
+        <span class="floating-heart heart-4">
+            ♥
+        </span>
+
+        <span class="floating-heart heart-5">
+            ♡
+        </span>
+
+
+        <span class="floating-star star-1">
+            ✦
+        </span>
+
+        <span class="floating-star star-2">
+            ✧
+        </span>
+
+        <span class="floating-star star-3">
+            ✦
+        </span>
+
+        <span class="floating-star star-4">
+            ✧
+        </span>
+
+        <span class="floating-star star-5">
+            ✦
+        </span>
+
+        <span class="floating-star star-6">
+            ✧
+        </span>
+
     </div>
+
 
     <!-- =====================================================
          WEBSITE
     ====================================================== -->
 
     <main id="website">
-      <!-- =================================================
+
+
+        <!-- =================================================
              HERO
         ================================================== -->
 
-      <section class="hero">
-        <!-- =============================================
-                 TOP LEFT FLOWERS
-            ============================================== -->
+        <section class="hero">
 
-        <div class="corner-floral top-left">
-          <div class="branch branch-one"></div>
 
-          <div class="branch branch-two"></div>
+            <!-- TOP LEFT FLOWERS -->
 
-          <span class="flower-big flower-a"> ✿ </span>
+            <div class="corner-floral top-left">
 
-          <span class="flower-big flower-b"> ❀ </span>
+                <div class="branch branch-one"></div>
 
-          <span class="flower-small flower-c"> ✿ </span>
+                <div class="branch branch-two"></div>
 
-          <span class="leaf leaf-a"></span>
-          <span class="leaf leaf-b"></span>
-          <span class="leaf leaf-c"></span>
-          <span class="leaf leaf-d"></span>
-          <span class="leaf leaf-e"></span>
-        </div>
+                <span class="flower-big flower-a">
+                    ✿
+                </span>
 
-        <!-- =============================================
-                 TOP RIGHT FLOWERS
-            ============================================== -->
+                <span class="flower-big flower-b">
+                    ❀
+                </span>
 
-        <div class="corner-floral top-right">
-          <div class="branch branch-one"></div>
+                <span class="flower-small flower-c">
+                    ✿
+                </span>
 
-          <div class="branch branch-two"></div>
+                <span class="leaf leaf-a"></span>
+                <span class="leaf leaf-b"></span>
+                <span class="leaf leaf-c"></span>
+                <span class="leaf leaf-d"></span>
+                <span class="leaf leaf-e"></span>
 
-          <span class="flower-big flower-a"> ✿ </span>
-
-          <span class="flower-big flower-b"> ❀ </span>
-
-          <span class="flower-small flower-c"> ✿ </span>
-
-          <span class="leaf leaf-a"></span>
-          <span class="leaf leaf-b"></span>
-          <span class="leaf leaf-c"></span>
-          <span class="leaf leaf-d"></span>
-          <span class="leaf leaf-e"></span>
-        </div>
-
-        <!-- =============================================
-                 BOTTOM LEFT FLOWERS
-            ============================================== -->
-
-        <div class="corner-floral bottom-left">
-          <div class="branch branch-one"></div>
-
-          <div class="branch branch-two"></div>
-
-          <span class="flower-big flower-a"> ❀ </span>
-
-          <span class="flower-big flower-b"> ✿ </span>
-
-          <span class="leaf leaf-a"></span>
-          <span class="leaf leaf-b"></span>
-          <span class="leaf leaf-c"></span>
-          <span class="leaf leaf-d"></span>
-          <span class="leaf leaf-e"></span>
-        </div>
-
-        <!-- =============================================
-                 BOTTOM RIGHT FLOWERS
-            ============================================== -->
-
-        <div class="corner-floral bottom-right">
-          <div class="branch branch-one"></div>
-
-          <div class="branch branch-two"></div>
-
-          <span class="flower-big flower-a"> ✿ </span>
-
-          <span class="flower-big flower-b"> ❀ </span>
-
-          <span class="leaf leaf-a"></span>
-          <span class="leaf leaf-b"></span>
-          <span class="leaf leaf-c"></span>
-          <span class="leaf leaf-d"></span>
-          <span class="leaf leaf-e"></span>
-        </div>
-
-        <!-- =============================================
-                 GOLD ARCH
-            ============================================== -->
-
-        <div class="gold-arch"></div>
-
-        <!-- =============================================
-                 DECORATIVE SPARKLES
-            ============================================== -->
-
-        <span class="sparkle sparkle-1"> ✦ </span>
-
-        <span class="sparkle sparkle-2"> ✧ </span>
-
-        <span class="sparkle sparkle-3"> ✦ </span>
-
-        <span class="sparkle sparkle-4"> ✧ </span>
-
-        <span class="sparkle sparkle-5"> ✦ </span>
-
-        <!-- Hearts -->
-
-        <span class="hero-heart heart-1"> ♡ </span>
-
-        <span class="hero-heart heart-2"> ♡ </span>
-
-        <!-- =============================================
-                 HERO CONTENT
-            ============================================== -->
-
-        <div class="hero-content">
-          <!-- Wedding rings -->
-
-          <div class="rings">
-            <span class="ring ring-left"></span>
-
-            <span class="ring ring-right"></span>
-
-            <span class="ring-diamond"> ✧ </span>
-          </div>
-
-          <p class="invitation-line">TOGETHER WITH OUR FAMILY, WE</p>
-
-          <h1 class="couple-names">
-            Mohamed
-
-            <span class="ampersand"> & </span>
-
-            Sara
-          </h1>
-
-          <!-- DATE -->
-
-          <div class="date-block">
-            <span class="month"> OCTOBER </span>
-
-            <div class="date-row">
-              <span> WEDNESDAY </span>
-
-              <strong> 07 </strong>
-
-              <span> AT 7:00 PM </span>
             </div>
 
-            <span class="year"> 2026 </span>
-          </div>
 
-          <!-- Divider -->
+            <!-- TOP RIGHT FLOWERS -->
 
-          <div class="tiny-divider">
-            <span></span>
+            <div class="corner-floral top-right">
 
-            <b> ♥ </b>
+                <div class="branch branch-one"></div>
 
-            <span></span>
-          </div>
+                <div class="branch branch-two"></div>
 
-          <p class="hero-message">
-            Two hearts, one beautiful story,
-            <br />
+                <span class="flower-big flower-a">
+                    ✿
+                </span>
 
-            and a lifetime together.
-          </p>
+                <span class="flower-big flower-b">
+                    ❀
+                </span>
 
-          <a href="#story" class="hero-button"> JOIN US </a>
-        </div>
-      </section>
+                <span class="flower-small flower-c">
+                    ✿
+                </span>
 
-      <!-- =================================================
+                <span class="leaf leaf-a"></span>
+                <span class="leaf leaf-b"></span>
+                <span class="leaf leaf-c"></span>
+                <span class="leaf leaf-d"></span>
+                <span class="leaf leaf-e"></span>
+
+            </div>
+
+
+            <!-- BOTTOM LEFT FLOWERS -->
+
+            <div class="corner-floral bottom-left">
+
+                <div class="branch branch-one"></div>
+
+                <div class="branch branch-two"></div>
+
+                <span class="flower-big flower-a">
+                    ❀
+                </span>
+
+                <span class="flower-big flower-b">
+                    ✿
+                </span>
+
+                <span class="leaf leaf-a"></span>
+                <span class="leaf leaf-b"></span>
+                <span class="leaf leaf-c"></span>
+                <span class="leaf leaf-d"></span>
+                <span class="leaf leaf-e"></span>
+
+            </div>
+
+
+            <!-- BOTTOM RIGHT FLOWERS -->
+
+            <div class="corner-floral bottom-right">
+
+                <div class="branch branch-one"></div>
+
+                <div class="branch branch-two"></div>
+
+                <span class="flower-big flower-a">
+                    ✿
+                </span>
+
+                <span class="flower-big flower-b">
+                    ❀
+                </span>
+
+                <span class="leaf leaf-a"></span>
+                <span class="leaf leaf-b"></span>
+                <span class="leaf leaf-c"></span>
+                <span class="leaf leaf-d"></span>
+                <span class="leaf leaf-e"></span>
+
+            </div>
+
+
+            <!-- GOLD ARCH -->
+
+            <div class="gold-arch"></div>
+
+
+            <!-- SPARKLES -->
+
+            <span class="sparkle sparkle-1">
+                ✦
+            </span>
+
+            <span class="sparkle sparkle-2">
+                ✧
+            </span>
+
+            <span class="sparkle sparkle-3">
+                ✦
+            </span>
+
+            <span class="sparkle sparkle-4">
+                ✧
+            </span>
+
+            <span class="sparkle sparkle-5">
+                ✦
+            </span>
+
+
+            <!-- HEARTS -->
+
+            <span class="hero-heart heart-1">
+                ♡
+            </span>
+
+            <span class="hero-heart heart-2">
+                ♡
+            </span>
+
+
+            <!-- HERO CONTENT -->
+
+            <div class="hero-content">
+
+
+                <!-- WEDDING RINGS -->
+
+                <div class="rings">
+
+                    <span class="ring ring-left"></span>
+
+                    <span class="ring ring-right"></span>
+
+                    <span class="ring-diamond">
+                        ✧
+                    </span>
+
+                </div>
+
+
+                <p class="invitation-line">
+                    TOGETHER WITH OUR FAMILY, WE
+                </p>
+
+
+                <h1 class="couple-names">
+
+                    Mohamed
+
+                    <span class="ampersand">
+                        &
+                    </span>
+
+                    Sara
+
+                </h1>
+
+
+                <!-- DATE -->
+
+                <div class="date-block">
+
+                    <span class="month">
+                        OCTOBER
+                    </span>
+
+
+                    <div class="date-row">
+
+                        <span>
+                            WEDNESDAY
+                        </span>
+
+                        <strong>
+                            07
+                        </strong>
+
+                        <span>
+                            AT 7:00 PM
+                        </span>
+
+                    </div>
+
+
+                    <span class="year">
+                        2026
+                    </span>
+
+                </div>
+
+
+                <!-- DIVIDER -->
+
+                <div class="tiny-divider">
+
+                    <span></span>
+
+                    <b>
+                        ♥
+                    </b>
+
+                    <span></span>
+
+                </div>
+
+
+                <p class="hero-message">
+
+                    Two hearts, one beautiful story,
+
+                    <br>
+
+                    and a lifetime together.
+
+                </p>
+
+
+                <a
+                    href="#story"
+                    class="hero-button"
+                >
+                    JOIN US
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
              OUR STORY
         ================================================== -->
 
-      <section id="story" class="story">
-        <div class="section-container">
-          <p class="section-label">OUR STORY</p>
+        <section
+            id="story"
+            class="story"
+        >
 
-          <h2>How It All Started</h2>
+            <div class="section-container">
 
-          <div class="section-ornament">❧</div>
+                <p class="section-label">
+                    OUR STORY
+                </p>
 
-          <p class="story-text">
-            We met, we talked, we laughed, and somehow we knew that our story
-            was just beginning.
 
-            <br /><br />
+                <h2>
+                    How It All Started
+                </h2>
 
-            From the first moment to this beautiful day, every memory has
-            brought us closer together.
 
-            <br /><br />
+                <div class="section-ornament">
+                    ❧
+                </div>
 
-            Now we are ready to begin our biggest adventure together.
-          </p>
-        </div>
-      </section>
 
-      <!-- =================================================
+                <p class="story-text">
+
+                    We met, we talked, we laughed,
+                    and somehow we knew that our
+                    story was just beginning.
+
+                    <br><br>
+
+                    From the first moment to this
+                    beautiful day, every memory has
+                    brought us closer together.
+
+                    <br><br>
+
+                    Now we are ready to begin our
+                    biggest adventure together.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
              DETAILS
         ================================================== -->
 
-      <section id="details" class="details">
-        <div class="section-container">
-          <p class="section-label">SAVE THE DATE</p>
+        <section
+            id="details"
+            class="details"
+        >
 
-          <h2>Wedding Details</h2>
+            <div class="section-container">
 
-          <div class="section-ornament">✦</div>
+                <p class="section-label">
+                    SAVE THE DATE
+                </p>
 
-          <div class="details-grid">
-            <!-- CEREMONY -->
 
-            <div class="detail-card">
-              <div class="detail-icon">♡</div>
+                <h2>
+                    Wedding Details
+                </h2>
 
-              <h3>Ceremony</h3>
 
-              <p>7:00 PM</p>
+                <div class="section-ornament">
+                    ✦
+                </div>
 
-              <span> The celebration begins </span>
+
+                <div class="details-grid">
+
+
+                    <!-- CEREMONY -->
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">
+                            ♡
+                        </div>
+
+                        <h3>
+                            Ceremony
+                        </h3>
+
+                        <p>
+                            7:00 PM
+                        </p>
+
+                        <span>
+                            The celebration begins
+                        </span>
+
+                    </div>
+
+
+                    <!-- TIE THE KNOT -->
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">
+                            💍
+                        </div>
+
+                        <h3>
+                            Tie the Knot
+                        </h3>
+
+                        <p>
+                            7:30 PM
+                        </p>
+
+                        <span>
+                            We say "I do" and begin forever
+                        </span>
+
+                    </div>
+
+
+                    <!-- CELEBRATION -->
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">
+                            ✨
+                        </div>
+
+                        <h3>
+                            Celebration
+                        </h3>
+
+                        <p>
+                            Until Late
+                        </p>
+
+                        <span>
+                            Dinner, dancing & memories
+                        </span>
+
+                    </div>
+
+
+                </div>
+
             </div>
 
-            <!-- TIE THE KNOT -->
+        </section>
 
-            <div class="detail-card">
-              <div class="detail-icon">💍</div>
 
-              <h3>Tie the Knot</h3>
 
-              <p>7:30 PM</p>
-
-              <span> We say "I do" and begin forever </span>
-            </div>
-
-            <!-- END -->
-
-            <div class="detail-card">
-              <div class="detail-icon">✨</div>
-
-              <h3>Celebration</h3>
-
-              <p>Until Late</p>
-
-              <span> Dinner, dancing & memories </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =================================================
+        <!-- =================================================
              LOCATION
         ================================================== -->
 
-      <section id="location" class="location">
-        <div class="section-container">
-          <p class="section-label">FIND US</p>
+        <section
+            id="location"
+            class="location"
+        >
 
-          <h2>Where We're Celebrating</h2>
+            <div class="section-container">
 
-          <div class="section-ornament">✦</div>
+                <p class="section-label">
+                    FIND US
+                </p>
 
-          <p class="location-text">
-            Grand Wedding Hall
-            <br />
 
-            Cairo, Egypt
-          </p>
+                <h2>
+                    Where We're Celebrating
+                </h2>
 
-          <div class="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2219.2000747907473!2d31.265304199999996!3d29.948072999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145839006fee4cf7%3A0x5b486b1cc20e8593!2sMoon%20Plaza!5e1!3m2!1sen!2seg!4v1786610835431!5m2!1sen!2seg"
-              width="600"
-              height="450"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>
-          </div>
 
-          <a
-            href="https://maps.app.goo.gl/HNaeH6PTy4VDhjRR7?g_st=aw"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="map-button"
-          >
-            📍 GET DIRECTIONS
-          </a>
-        </div>
-      </section>
+                <div class="section-ornament">
+                    ✦
+                </div>
 
-      <!-- =================================================
+
+                <p class="location-text">
+
+                    Grand Wedding Hall
+
+                    <br>
+
+                    Cairo, Egypt
+
+                </p>
+
+
+                <div class="map-container">
+
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2219.2000747907473!2d31.265304199999996!3d29.948072999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145839006fee4cf7%3A0x5b486b1cc20e8593!2sMoon%20Plaza!5e1!3m2!1sen!2seg!4v1786610835431!5m2!1sen!2seg"
+                        width="600"
+                        height="450"
+                        style="border: 0"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                    ></iframe>
+
+                </div>
+
+
+                <a
+                    href="https://maps.app.goo.gl/HNaeH6PTy4VDhjRR7?g_st=aw"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="map-button"
+                >
+                    📍 GET DIRECTIONS
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
              COUNTDOWN
         ================================================== -->
 
-      <section class="countdown-section">
-        <div class="section-container">
-          <p class="section-label">THE BIG DAY</p>
+        <section class="countdown-section">
 
-          <h2>Counting Down To Forever</h2>
+            <div class="section-container">
 
-          <div class="section-ornament">✦</div>
+                <p class="section-label">
+                    THE BIG DAY
+                </p>
 
-          <div class="countdown">
-            <div class="countdown-item">
-              <strong id="days"> 00 </strong>
 
-              <span> DAYS </span>
+                <h2>
+                    Counting Down To Forever
+                </h2>
+
+
+                <div class="section-ornament">
+                    ✦
+                </div>
+
+
+                <div class="countdown">
+
+
+                    <div class="countdown-item">
+
+                        <strong id="days">
+                            00
+                        </strong>
+
+                        <span>
+                            DAYS
+                        </span>
+
+                    </div>
+
+
+                    <div class="countdown-item">
+
+                        <strong id="hours">
+                            00
+                        </strong>
+
+                        <span>
+                            HOURS
+                        </span>
+
+                    </div>
+
+
+                    <div class="countdown-item">
+
+                        <strong id="minutes">
+                            00
+                        </strong>
+
+                        <span>
+                            MINUTES
+                        </span>
+
+                    </div>
+
+
+                    <div class="countdown-item">
+
+                        <strong id="seconds">
+                            00
+                        </strong>
+
+                        <span>
+                            SECONDS
+                        </span>
+
+                    </div>
+
+
+                </div>
+
             </div>
 
-            <div class="countdown-item">
-              <strong id="hours"> 00 </strong>
+        </section>
 
-              <span> HOURS </span>
-            </div>
 
-            <div class="countdown-item">
-              <strong id="minutes"> 00 </strong>
 
-              <span> MINUTES </span>
-            </div>
-
-            <div class="countdown-item">
-              <strong id="seconds"> 00 </strong>
-
-              <span> SECONDS </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =================================================
+        <!-- =================================================
              GALLERY
         ================================================== -->
 
-      <section class="gallery">
-        <div class="section-container">
-          <p class="section-label">OUR MOMENTS</p>
+        <section class="gallery">
 
-          <h2>A Few Memories</h2>
+            <div class="section-container">
 
-          <div class="section-ornament">♡</div>
+                <p class="section-label">
+                    OUR MOMENTS
+                </p>
 
-          <div class="gallery-grid">
-            <div class="photo-frame">
-              <img src="assets/photo1.jpeg" alt="Wedding memory" />
+
+                <h2>
+                    A Few Memories
+                </h2>
+
+
+                <div class="section-ornament">
+                    ♡
+                </div>
+
+
+                <div class="gallery-grid">
+
+
+                    <div class="photo-frame">
+
+                        <img
+                            src="assets/photo1.jpeg"
+                            alt="Wedding memory"
+                        >
+
+                    </div>
+
+
+                    <div class="photo-frame">
+
+                        <img
+                            src="assets/photo2.jpeg"
+                            alt="Wedding memory"
+                        >
+
+                    </div>
+
+
+                    <div class="photo-frame">
+
+                        <img
+                            src="assets/photo3.jpeg"
+                            alt="Wedding memory"
+                        >
+
+                    </div>
+
+
+                </div>
+
             </div>
 
-            <div class="photo-frame">
-              <img src="assets/photo2.jpeg" alt="Wedding memory" />
-            </div>
+        </section>
 
-            <div class="photo-frame">
-              <img src="assets/photo3.jpeg" alt="Wedding memory" />
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- =================================================
+
+        <!-- =================================================
              RSVP
         ================================================== -->
 
-      <!-- <section class="rsvp">
-        <div class="section-container">
-          <p class="section-label">WE WOULD LOVE TO SEE YOU</p>
+        <!--
+        <section class="rsvp">
 
-          <h2>Will You Join Us?</h2>
+            <div class="section-container">
 
-          <div class="section-ornament">♡</div>
+                <p class="section-label">
+                    WE WOULD LOVE TO SEE YOU
+                </p>
 
-          <p class="rsvp-text">
-            Your presence would make our special day even more beautiful.
-          </p>
+                <h2>
+                    Will You Join Us?
+                </h2>
 
-          <button class="rsvp-button" onclick="showRSVP()">RSVP</button>
-        </div>
-      </section> -->
+                <div class="section-ornament">
+                    ♡
+                </div>
 
-      <!-- =====================================================
-     INVITATION BOOK / GUEST MESSAGES
-====================================================== -->
+                <p class="rsvp-text">
+                    Your presence would make our
+                    special day even more beautiful.
+                </p>
 
-      <section class="guest-book" id="guestBook">
-        <div class="guest-boook section-container">
-          <p class="section-label">FROM OUR GUESTS</p>
+                <button
+                    class="rsvp-button"
+                    onclick="showRSVP()"
+                >
+                    RSVP
+                </button>
 
-          <h2>Our Invitation Book ♡</h2>
-
-          <p class="guest-book-intro">
-            Leave us a little message that we can keep as a memory of our
-            special day.
-          </p>
-
-          <!-- BOOK -->
-
-          <div class="invitation-book">
-            <div class="book-spine"></div>
-
-            <div id="guestMessages" class="guest-messages">
-              <!-- Messages will appear here -->
             </div>
-          </div>
 
-          <button class="rsvp-button book-button" onclick="showRSVP()">
-            WRITE IN OUR BOOK
-          </button>
-        </div>
-      </section>
+        </section>
+        -->
 
-      <!-- =================================================
+
+
+        <!-- =================================================
+             INVITATION BOOK
+        ================================================== -->
+
+        <section
+            id="guestBook"
+            class="guest-book"
+        >
+
+            <div class="section-container">
+
+                <p class="section-label">
+                    FROM OUR GUESTS
+                </p>
+
+
+                <h2>
+                    Our Invitation Book
+                </h2>
+
+
+                <div class="section-ornament">
+                    ♡
+                </div>
+
+
+                <p class="guest-book-intro">
+
+                    Leave us a little message
+                    that we can keep as a memory
+                    of our special day.
+
+                </p>
+
+
+
+                <!-- =================================================
+                     REAL WEDDING BOOK
+                ================================================== -->
+
+                <div
+                    class="real-book"
+                    id="realBook"
+                >
+
+
+                    <!-- =================================================
+                         CLOSED COVER
+                    ================================================== -->
+
+                    <div
+                        class="book-cover"
+                        id="bookCover"
+                    >
+
+                        <div class="cover-decoration">
+                            ✦
+                        </div>
+
+
+                        <p class="cover-small">
+                            OUR
+                        </p>
+
+
+                        <h3>
+                            Guest Book
+                        </h3>
+
+
+                        <p class="cover-names">
+                            Mohamed & Sara
+                        </p>
+
+
+                        <div class="cover-heart">
+                            ♡
+                        </div>
+
+
+                        <p class="cover-date">
+                            07 • 10 • 2026
+                        </p>
+
+
+                        <button
+                            type="button"
+                            class="open-book-button"
+                            id="bookToggleButton"
+                        >
+                            OPEN OUR BOOK
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         BOOK PAGES
+                    ================================================== -->
+
+                    <div
+                        class="book-pages"
+                        id="bookPages"
+                    >
+
+
+                        <!-- =================================================
+                             LEFT PAGE
+                        ================================================== -->
+
+                        <div
+                            class="book-page left-page"
+                            id="leftPage"
+                        >
+
+                            <div class="page-front">
+
+                                <div class="page-inner">
+
+                                    <div class="page-flower">
+                                        ✿
+                                    </div>
+
+
+                                    <p class="page-greeting">
+                                        Dear Mohamed & Sara,
+                                    </p>
+
+
+                                    <p
+                                        class="page-message"
+                                        id="leftMessage"
+                                    >
+                                        Your beautiful memories
+                                        will live here forever.
+                                    </p>
+
+
+                                    <div class="page-ornament">
+
+                                        <span></span>
+
+                                        ♡
+
+                                        <span></span>
+
+                                    </div>
+
+
+                                    <p
+                                        class="page-name"
+                                        id="leftName"
+                                    >
+                                        —
+                                    </p>
+
+
+                                    <p
+                                        class="page-date"
+                                        id="leftDate"
+                                    >
+                                        07 • 10 • 2026
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="page-back">
+
+                                <div class="page-back-inner">
+                                    <span>♡</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             SPINE
+                        ================================================== -->
+
+                        <div class="book-spine">
+
+                            <div class="spine-shadow"></div>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             RIGHT PAGE
+                        ================================================== -->
+
+                        <div
+                            class="book-page right-page"
+                            id="rightPage"
+                        >
+
+                            <div class="page-front">
+
+                                <div class="page-inner">
+
+                                    <div class="page-flower">
+                                        ✿
+                                    </div>
+
+
+                                    <p class="page-greeting">
+                                        Dear Mohamed & Sara,
+                                    </p>
+
+
+                                    <p
+                                        class="page-message"
+                                        id="rightMessage"
+                                    >
+                                        We are waiting for your
+                                        beautiful message.
+                                    </p>
+
+
+                                    <div class="page-ornament">
+
+                                        <span></span>
+
+                                        ♡
+
+                                        <span></span>
+
+                                    </div>
+
+
+                                    <p
+                                        class="page-name"
+                                        id="rightName"
+                                    >
+                                        —
+                                    </p>
+
+
+                                    <p
+                                        class="page-date"
+                                        id="rightDate"
+                                    >
+                                        07 • 10 • 2026
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="page-back">
+
+                                <div class="page-back-inner">
+                                    <span>♡</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     CLOSE BOOK BUTTON
+                     OUTSIDE THE BOOK
+                ================================================== -->
+
+                <div
+                    class="book-close-control"
+                    id="bookCloseControl"
+                >
+
+                    <button
+                        type="button"
+                        class="close-book-button"
+                        id="closeBookButton"
+                    >
+                        CLOSE BOOK
+                    </button>
+
+                </div>
+
+<!-- =================================================
+     WRITE IN OUR BOOK
+================================================= -->
+
+<div
+    class="write-book-control"
+    id="writeBookControl"
+>
+
+    <button
+        type="button"
+        class="write-book-button"
+        id="writeBookButton"
+    >
+        ❧ WRITE IN OUR BOOK
+    </button>
+
+</div>
+
+                <!-- =================================================
+                     DESKTOP PAGE CONTROLS
+                     HIDDEN ON MOBILE
+                ================================================== -->
+
+                <div
+                    class="book-controls"
+                    id="bookControls"
+                >
+
+                    <button
+                        type="button"
+                        class="book-nav-button"
+                        id="previousPage"
+                    >
+                        ←
+                    </button>
+
+
+                    <span class="book-page-number">
+
+                        <span id="currentPage">
+                            1
+                        </span>
+
+                        <span>
+                            /
+                        </span>
+
+                        <span id="totalPages">
+                            1
+                        </span>
+
+                    </span>
+
+
+                    <button
+                        type="button"
+                        class="book-nav-button"
+                        id="nextPage"
+                    >
+                        →
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
              FOOTER
         ================================================== -->
 
-      <footer class="footer">
-        <div class="footer-branch">❧</div>
+        <footer class="footer">
 
-        <h2>Mohamed & Sara</h2>
+            <div class="footer-branch">
+                ❧
+            </div>
 
-        <p>07 • 10 • 2026</p>
 
-        <div class="footer-heart">♡</div>
+            <h2>
+                Mohamed & Sara
+            </h2>
 
-        <p class="footer-message">We can't wait to celebrate with you.</p>
-      </footer>
+
+            <p>
+                07 • 10 • 2026
+            </p>
+
+
+            <div class="footer-heart">
+                ♡
+            </div>
+
+
+            <p class="footer-message">
+                We can't wait to celebrate with you.
+            </p>
+
+        </footer>
+
+
     </main>
+
+
 
     <!-- =====================================================
          RSVP MODAL
     ====================================================== -->
 
-    <div id="rsvpModal" class="modal">
-      <div class="modal-content">
-        <button class="close-button" onclick="closeRSVP()">×</button>
+    <div
+        id="rsvpModal"
+        class="modal"
+    >
 
-        <p class="section-label">RSVP</p>
+        <div class="modal-content">
 
-        <h2>Join Our Celebration</h2>
 
-        <p>We hope you can join us!</p>
+            <button
+                class="close-button"
+                onclick="closeRSVP()"
+            >
+                ×
+            </button>
 
-        <form id="rsvpForm">
-          <input type="text" placeholder="Your Name" required />
 
-          <select required>
-            <option value="">Will you attend?</option>
+            <p class="section-label">
+                RSVP
+            </p>
 
-            <option value="yes">Yes, I'll be there ❤️</option>
 
-            <option value="no">Sorry, I can't attend</option>
-          </select>
+            <h2>
+                Join Our Celebration
+            </h2>
 
-          <input
-            type="number"
-            min="1"
-            value="1"
-            placeholder="Number of Guests"
-            hidden
-          />
 
-          <textarea placeholder="A message for us..." rows="4"></textarea>
+            <p>
+                We hope you can join us!
+            </p>
 
-          <button type="submit" class="submit-button">SEND RSVP</button>
-        </form>
-      </div>
+
+            <form id="rsvpForm">
+
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                >
+
+
+                <select
+                    name="attendance"
+                    required
+                >
+
+                    <option value="">
+                        Will you attend?
+                    </option>
+
+                    <option value="yes">
+                        Yes, I'll be there ❤️
+                    </option>
+
+                    <option value="no">
+                        Sorry, I can't attend
+                    </option>
+
+                </select>
+
+
+                <input
+                    type="number"
+                    name="guests"
+                    min="1"
+                    value="1"
+                    placeholder="Number of Guests"
+                    hidden
+                >
+
+
+                <textarea
+                    name="message"
+                    placeholder="A message for us..."
+                    rows="4"
+                    required
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    SEND RSVP
+                </button>
+
+
+            </form>
+
+        </div>
+
     </div>
 
-    <!-- JavaScript -->
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
     <script src="script.js"></script>
-  </body>
+
+
+</body>
+
 </html>
