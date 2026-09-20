@@ -3659,6 +3659,31 @@ h2 {
 
 }
 
+.page-message {
+    max-height: 170px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+
+    overflow-wrap: anywhere;
+
+    scrollbar-width: none;
+    scrollbar-color: var(--accent) transparent;
+}
+
+.page-message::-webkit-scrollbar {
+    width: 4px;
+}
+
+.page-message::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.page-message::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 20px;
+}
+
 /* =========================================================
    WRITE IN OUR BOOK
 ========================================================= */

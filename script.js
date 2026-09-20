@@ -1,6 +1,195 @@
 /* =========================================================
-   WEDDING INVITATION
+   💍 MOHAMED & SARA WEDDING INVITATION
    COMPLETE CLEAN SCRIPT
+
+   CHANGE ONLY THE WEDDING CONFIGURATION
+   AT THE TOP OF THIS FILE.
+========================================================= */
+
+
+/* =========================================================
+   💍 WEDDING CONFIGURATION
+   =========================================================
+   THIS IS THE ONLY SECTION YOU SHOULD NORMALLY EDIT.
+========================================================= */
+
+const WEDDING = {
+
+    /* =====================================================
+       COUPLE
+    ===================================================== */
+
+    couple: {
+
+        groom: "hamed",
+
+        bride: "Sara"
+
+    },
+
+
+    /* =====================================================
+       WEDDING DATE
+    ===================================================== */
+
+    date: {
+
+        day: "07",
+
+        month: "OCTOBER",
+
+        year: "2026",
+
+        dayName: "WEDNESDAY",
+
+        time: "7:00 PM",
+
+        /*
+         * Countdown date
+         *
+         * Format:
+         * YYYY-MM-DDTHH:MM:SS
+         */
+
+        countdown:
+            "2026-10-07T19:00:00"
+
+    },
+
+
+    /* =====================================================
+       CEREMONY
+    ===================================================== */
+
+    ceremony: {
+
+        time: "7:00 PM",
+
+        description:
+            "The celebration begins"
+
+    },
+
+
+    /* =====================================================
+       TIE THE KNOT
+    ===================================================== */
+
+    knot: {
+
+        time: "7:30 PM",
+
+        description:
+            'We say "I do" and begin forever'
+
+    },
+
+
+    /* =====================================================
+       CELEBRATION
+    ===================================================== */
+
+    celebration: {
+
+        time: "Until Late",
+
+        description:
+            "Dinner, dancing & memories"
+
+    },
+
+
+    /* =====================================================
+       LOCATION
+    ===================================================== */
+
+    location: {
+
+        venue:
+            "Grand Wedding Hall",
+
+        city:
+            "Cairo, Egypt",
+
+        mapsUrl:
+            "https://maps.app.goo.gl/HNaeH6PTy4VDhjRR7?g_st=aw"
+
+    },
+
+
+    /* =====================================================
+       MUSIC
+    ===================================================== */
+
+    music: {
+
+        file:
+            "assets/wedding-music.mp3",
+
+        autoplay:
+            false
+
+    },
+
+
+    /* =====================================================
+       GALLERY
+    ===================================================== */
+
+    gallery: [
+
+        "assets/photo1.jpeg",
+
+        "assets/photo2.jpeg",
+
+        "assets/photo3.jpeg"
+
+    ],
+
+
+    /* =====================================================
+       INVITATION BOOK
+    ===================================================== */
+
+    book: {
+
+        title:
+            "Guest Book",
+
+        smallTitle:
+            "OUR",
+
+        introduction:
+            "Leave us a little message that we can keep as a memory of our special day.",
+
+        greeting:
+            "Dear amed & Sara,",
+
+        emptyMessage:
+            "We are waiting for your beautiful message.",
+
+        emptyName:
+            "— Your message",
+
+        date:
+            "09 • 10 • 2026",
+
+        openButton:
+            "OPEN OUR BOOK",
+
+        closeButton:
+            "CLOSE BOOK",
+
+        writeButton:
+            "❧ WRITE IN OUR BOOK"
+
+    }
+
+};
+
+
+/* =========================================================
+   ⚠️ DO NOT EDIT BELOW THIS LINE
 ========================================================= */
 
 
@@ -14,6 +203,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_KxaPvyYPh-GNjNq6NYpbGw_bGAB7vMc";
 
+
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
@@ -22,25 +212,492 @@ const supabaseClient =
 
 
 /* =========================================================
-   MUSIC
+   DOM READY
 ========================================================= */
 
-const music =
-    document.getElementById(
-        "backgroundMusic"
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        initializeWedding();
+        
+
+    }
+);
+
+
+/* =========================================================
+   MAIN INITIALIZATION
+========================================================= */
+
+function initializeWedding() {
+
+    applyWeddingData();
+
+    initializeCountdown();
+
+    initializeMusic();
+
+    initializeThemes();
+
+    initializeRSVP();
+
+    initializeBook();
+
+    initializeScrollReveal();
+
+    initializeWriteBookButton();
+
+}
+
+
+/* =========================================================
+   WEDDING DATA
+========================================================= */
+
+function applyWeddingData() {
+
+
+    /* =====================================================
+       COUPLE
+    ===================================================== */
+
+    const coupleNames =
+        document.getElementById(
+            "coupleNames"
+        );
+
+
+    if (coupleNames) {
+
+        coupleNames.innerHTML = `
+
+            ${WEDDING.couple.groom}
+
+            <span class="ampersand">
+                &
+            </span>
+
+            ${WEDDING.couple.bride}
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       MONTH
+    ===================================================== */
+
+    const month =
+        document.querySelector(
+            ".month"
+        );
+
+
+    if (month) {
+
+        month.textContent =
+            WEDDING.date.month;
+
+    }
+
+
+    /* =====================================================
+       DAY
+    ===================================================== */
+
+    const dateNumber =
+        document.querySelector(
+            ".date-row strong"
+        );
+
+
+    if (dateNumber) {
+
+        dateNumber.textContent =
+            WEDDING.date.day;
+
+    }
+
+
+    /* =====================================================
+       DAY NAME
+    ===================================================== */
+
+    const dateSpans =
+        document.querySelectorAll(
+            ".date-row span"
+        );
+
+
+    if (dateSpans.length > 0) {
+
+        dateSpans[0].textContent =
+            WEDDING.date.dayName;
+
+    }
+
+
+    /* =====================================================
+       TIME
+    ===================================================== */
+
+    if (dateSpans.length > 1) {
+
+        dateSpans[
+            dateSpans.length - 1
+        ].textContent =
+            `AT ${WEDDING.date.time}`;
+
+    }
+
+
+    /* =====================================================
+       YEAR
+    ===================================================== */
+
+    const year =
+        document.querySelector(
+            ".year"
+        );
+
+
+    if (year) {
+
+        year.textContent =
+            WEDDING.date.year;
+
+    }
+
+
+    /* =====================================================
+       CEREMONY
+    ===================================================== */
+
+    const ceremonyCard =
+        document.querySelector(
+            ".detail-card:nth-child(1)"
+        );
+
+
+    if (ceremonyCard) {
+
+        const time =
+            ceremonyCard.querySelector(
+                "p"
+            );
+
+        const description =
+            ceremonyCard.querySelector(
+                "span"
+            );
+
+
+        if (time) {
+
+            time.textContent =
+                WEDDING.ceremony.time;
+
+        }
+
+
+        if (description) {
+
+            description.textContent =
+                WEDDING.ceremony.description;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       TIE THE KNOT
+    ===================================================== */
+
+    const knotCard =
+        document.querySelector(
+            ".detail-card:nth-child(2)"
+        );
+
+
+    if (knotCard) {
+
+        const time =
+            knotCard.querySelector(
+                "p"
+            );
+
+        const description =
+            knotCard.querySelector(
+                "span"
+            );
+
+
+        if (time) {
+
+            time.textContent =
+                WEDDING.knot.time;
+
+        }
+
+
+        if (description) {
+
+            description.textContent =
+                WEDDING.knot.description;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CELEBRATION
+    ===================================================== */
+
+    const celebrationCard =
+        document.querySelector(
+            ".detail-card:nth-child(3)"
+        );
+
+
+    if (celebrationCard) {
+
+        const time =
+            celebrationCard.querySelector(
+                "p"
+            );
+
+        const description =
+            celebrationCard.querySelector(
+                "span"
+            );
+
+
+        if (time) {
+
+            time.textContent =
+                WEDDING.celebration.time;
+
+        }
+
+
+        if (description) {
+
+            description.textContent =
+                WEDDING.celebration.description;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       LOCATION
+    ===================================================== */
+
+    const locationText =
+        document.querySelector(
+            ".location-text"
+        );
+
+
+    if (locationText) {
+
+        locationText.innerHTML = `
+
+            ${WEDDING.location.venue}
+
+            <br>
+
+            ${WEDDING.location.city}
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       MAP BUTTON
+    ===================================================== */
+
+    const mapButton =
+        document.querySelector(
+            ".map-button"
+        );
+
+
+    if (mapButton) {
+
+        mapButton.href =
+            WEDDING.location.mapsUrl;
+
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    const footerNames =
+        document.querySelector(
+            ".footer h2"
+        );
+
+
+    if (footerNames) {
+
+        footerNames.textContent =
+
+            `${WEDDING.couple.groom} & ` +
+            `${WEDDING.couple.bride}`;
+
+    }
+
+
+    const footerDate =
+        document.querySelector(
+            ".footer > p"
+        );
+
+
+    if (footerDate) {
+
+        footerDate.textContent =
+
+            `${WEDDING.date.day} • ` +
+            `${getMonthNumber(WEDDING.date.month)} • ` +
+            `${WEDDING.date.year}`;
+
+    }
+
+
+    /* =====================================================
+       GALLERY
+    ===================================================== */
+
+    const galleryImages =
+        document.querySelectorAll(
+            ".gallery-grid img"
+        );
+
+
+    galleryImages.forEach(
+        function (image, index) {
+
+            if (
+                WEDDING.gallery[index]
+            ) {
+
+                image.src =
+                    WEDDING.gallery[index];
+
+            }
+
+        }
     );
 
-const musicButton =
-    document.getElementById(
-        "musicButton"
+}
+
+
+/* =========================================================
+   MONTH NUMBER
+========================================================= */
+
+function getMonthNumber(month) {
+
+    const months = {
+
+        JANUARY: "01",
+
+        FEBRUARY: "02",
+
+        MARCH: "03",
+
+        APRIL: "04",
+
+        MAY: "05",
+
+        JUNE: "06",
+
+        JULY: "07",
+
+        AUGUST: "08",
+
+        SEPTEMBER: "09",
+
+        OCTOBER: "10",
+
+        NOVEMBER: "11",
+
+        DECEMBER: "12"
+
+    };
+
+
+    return months[
+        String(month).toUpperCase()
+    ] || "01";
+
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+let weddingCountdownDate = null;
+
+
+function initializeCountdown() {
+
+    weddingCountdownDate =
+        new Date(
+            WEDDING.date.countdown
+        ).getTime();
+
+
+    updateCountdown();
+
+
+    setInterval(
+        updateCountdown,
+        1000
     );
 
+}
 
-function updateMusicButton() {
+
+function updateCountdown() {
+
+    const daysElement =
+        document.getElementById(
+            "days"
+        );
+
+    const hoursElement =
+        document.getElementById(
+            "hours"
+        );
+
+    const minutesElement =
+        document.getElementById(
+            "minutes"
+        );
+
+    const secondsElement =
+        document.getElementById(
+            "seconds"
+        );
+
 
     if (
-        !music ||
-        !musicButton
+        !daysElement ||
+        !hoursElement ||
+        !minutesElement ||
+        !secondsElement
     ) {
 
         return;
@@ -48,102 +705,239 @@ function updateMusicButton() {
     }
 
 
-    musicButton.textContent =
-        music.paused
-            ? "🔇"
-            : "🔊";
+    const now =
+        new Date().getTime();
+
+
+    const difference =
+        weddingCountdownDate - now;
+
+
+    if (
+        difference <= 0
+    ) {
+
+        daysElement.textContent =
+            "00";
+
+        hoursElement.textContent =
+            "00";
+
+        minutesElement.textContent =
+            "00";
+
+        secondsElement.textContent =
+            "00";
+
+        return;
+
+    }
+
+
+    const days =
+        Math.floor(
+            difference /
+            (
+                1000 *
+                60 *
+                60 *
+                24
+            )
+        );
+
+
+    const hours =
+        Math.floor(
+
+            (
+                difference %
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                )
+
+            ) /
+
+            (
+                1000 *
+                60 *
+                60
+            )
+
+        );
+
+
+    const minutes =
+        Math.floor(
+
+            (
+                difference %
+                (
+                    1000 *
+                    60 *
+                    60
+                )
+
+            ) /
+
+            (
+                1000 *
+                60
+            )
+
+        );
+
+
+    const seconds =
+        Math.floor(
+
+            (
+                difference %
+                (
+                    1000 *
+                    60
+                )
+
+            ) /
+
+            1000
+
+        );
+
+
+    daysElement.textContent =
+        String(days).padStart(
+            2,
+            "0"
+        );
+
+
+    hoursElement.textContent =
+        String(hours).padStart(
+            2,
+            "0"
+        );
+
+
+    minutesElement.textContent =
+        String(minutes).padStart(
+            2,
+            "0"
+        );
+
+
+    secondsElement.textContent =
+        String(seconds).padStart(
+            2,
+            "0"
+        );
 
 }
 
 
-window.addEventListener(
-    "load",
-    () => {
+/* =========================================================
+   MUSIC
+========================================================= */
 
-        if (!music) {
+function initializeMusic() {
+
+    const music =
+        document.getElementById(
+            "backgroundMusic"
+        );
+
+
+    const musicButton =
+        document.getElementById(
+            "musicButton"
+        );
+
+
+    if (!music) {
+
+        return;
+
+    }
+
+
+    music.src =
+        WEDDING.music.file;
+
+
+    function updateMusicButton() {
+
+        if (!musicButton) {
+
             return;
+
         }
 
 
-        music
-            .play()
+        musicButton.textContent =
+            music.paused
+                ? "🔇"
+                : "🔊";
+
+    }
+
+
+    updateMusicButton();
+
+
+    if (
+        WEDDING.music.autoplay
+    ) {
+
+        music.play()
             .then(
                 updateMusicButton
             )
             .catch(
-                updateMusicButton
+                function () {
+
+                    updateMusicButton();
+
+                }
             );
 
     }
-);
 
 
-document.addEventListener(
-    "click",
-    () => {
+    if (musicButton) {
 
-        if (!music) {
-            return;
-        }
+        musicButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
 
 
-        if (music.paused) {
+                if (
+                    music.paused
+                ) {
 
-            music
-                .play()
-                .then(
-                    updateMusicButton
-                )
-                .catch(
-                    () => {}
-                );
+                    music.play()
+                        .then(
+                            updateMusicButton
+                        )
+                        .catch(
+                            function () {}
+                        );
 
-        }
+                } else {
 
-    },
-    {
-        once: true
+                    music.pause();
+
+                    updateMusicButton();
+
+                }
+
+            }
+        );
+
     }
-);
-
-
-if (
-    musicButton &&
-    music
-) {
-
-    musicButton.addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-
-            if (
-                music.paused
-            ) {
-
-                music
-                    .play()
-                    .then(
-                        updateMusicButton
-                    )
-                    .catch(
-                        () => {}
-                    );
-
-            }
-
-            else {
-
-                music.pause();
-
-                updateMusicButton();
-
-            }
-
-        }
-    );
 
 }
 
@@ -597,146 +1391,223 @@ const themes = {
 
 
 /* =========================================================
-   THEME TESTER
+   INITIALIZE THEMES
 ========================================================= */
 
-const themeTester =
-    document.getElementById(
-        "themeTester"
-    );
+function initializeThemes() {
 
-const themeOpen =
-    document.getElementById(
-        "themeOpen"
-    );
-
-const themeClose =
-    document.getElementById(
-        "themeClose"
-    );
-
-const themeList =
-    document.getElementById(
-        "themeList"
-    );
+    const themeTester =
+        document.getElementById(
+            "themeTester"
+        );
 
 
-function createThemeOptions() {
+    const themeOpen =
+        document.getElementById(
+            "themeOpen"
+        );
 
-    if (!themeList) {
-        return;
+
+    const themeClose =
+        document.getElementById(
+            "themeClose"
+        );
+
+
+    const themeList =
+        document.getElementById(
+            "themeList"
+        );
+
+
+    if (themeList) {
+
+        themeList.innerHTML =
+            "";
+
+
+        Object.entries(
+            themes
+        ).forEach(
+            function (
+                [
+                    key,
+                    theme
+                ]
+            ) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "theme-option";
+
+
+                button.dataset.theme =
+                    key;
+
+
+                const name =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                name.className =
+                    "theme-name";
+
+
+                name.textContent =
+                    theme.name;
+
+
+                const colors =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                colors.className =
+                    "theme-colors";
+
+
+                theme.colors.forEach(
+                    function (
+                        color
+                    ) {
+
+                        const circle =
+                            document.createElement(
+                                "span"
+                            );
+
+
+                        circle.className =
+                            "theme-color";
+
+
+                        circle.style.background =
+                            color;
+
+
+                        colors.appendChild(
+                            circle
+                        );
+
+                    }
+                );
+
+
+                button.appendChild(
+                    name
+                );
+
+
+                button.appendChild(
+                    colors
+                );
+
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        applyTheme(
+                            key
+                        );
+
+                    }
+                );
+
+
+                themeList.appendChild(
+                    button
+                );
+
+            }
+        );
+
     }
 
 
-    themeList.innerHTML =
-        "";
+    const savedTheme =
+        localStorage.getItem(
+            "wedding-theme"
+        );
 
 
-    Object.entries(
-        themes
-    ).forEach(
-        (
-            [key, theme]
-        ) => {
+    applyTheme(
 
-            const button =
-                document.createElement(
-                    "button"
-                );
+        savedTheme &&
+        themes[savedTheme]
 
+            ? savedTheme
 
-            button.type =
-                "button";
+            : "sage"
 
-
-            button.className =
-                "theme-option";
-
-
-            button.dataset.theme =
-                key;
-
-
-            const name =
-                document.createElement(
-                    "span"
-                );
-
-
-            name.className =
-                "theme-name";
-
-
-            name.textContent =
-                theme.name;
-
-
-            const colors =
-                document.createElement(
-                    "div"
-                );
-
-
-            colors.className =
-                "theme-colors";
-
-
-            theme.colors.forEach(
-                color => {
-
-                    const circle =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    circle.className =
-                        "theme-color";
-
-
-                    circle.style.background =
-                        color;
-
-
-                    colors.appendChild(
-                        circle
-                    );
-
-                }
-            );
-
-
-            button.appendChild(
-                name
-            );
-
-
-            button.appendChild(
-                colors
-            );
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    applyTheme(
-                        key
-                    );
-
-                }
-            );
-
-
-            themeList.appendChild(
-                button
-            );
-
-        }
     );
+
+
+    if (
+        themeOpen &&
+        themeTester
+    ) {
+
+        themeOpen.addEventListener(
+            "click",
+            function () {
+
+                themeTester.classList.remove(
+                    "hidden"
+                );
+
+
+                themeOpen.classList.remove(
+                    "visible"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (
+        themeClose &&
+        themeTester
+    ) {
+
+        themeClose.addEventListener(
+            "click",
+            function () {
+
+                themeTester.classList.add(
+                    "hidden"
+                );
+
+
+                themeOpen.classList.add(
+                    "visible"
+                );
+
+            }
+        );
+
+    }
 
 }
 
+
+/* =========================================================
+   APPLY THEME
+========================================================= */
 
 function applyTheme(
     themeKey
@@ -747,26 +1618,26 @@ function applyTheme(
 
 
     if (!theme) {
+
         return;
+
     }
 
 
     Object.entries(
         theme.variables
     ).forEach(
-        (
+        function (
             [
                 variable,
                 value
             ]
-        ) => {
+        ) {
 
-            document.documentElement
-                .style
-                .setProperty(
-                    variable,
-                    value
-                );
+            document.documentElement.style.setProperty(
+                variable,
+                value
+            );
 
         }
     );
@@ -777,7 +1648,9 @@ function applyTheme(
             ".theme-option"
         )
         .forEach(
-            button => {
+            function (
+                button
+            ) {
 
                 button.classList.remove(
                     "active"
@@ -810,585 +1683,354 @@ function applyTheme(
 }
 
 
-createThemeOptions();
-
-
-const savedTheme =
-    localStorage.getItem(
-        "wedding-theme"
-    );
-
-
-applyTheme(
-    savedTheme &&
-    themes[savedTheme]
-        ? savedTheme
-        : "sage"
-);
-
-
 /* =========================================================
-   THEME BUTTONS
+   RSVP
 ========================================================= */
 
-if (
-    themeOpen &&
-    themeTester
-) {
+function initializeRSVP() {
 
-    themeOpen.addEventListener(
-        "click",
-        () => {
-
-            themeTester.classList.remove(
-                "hidden"
-            );
-
-            themeOpen.classList.remove(
-                "visible"
-            );
-
-        }
-    );
-
-}
-
-
-if (
-    themeClose &&
-    themeTester
-) {
-
-    themeClose.addEventListener(
-        "click",
-        () => {
-
-            themeTester.classList.add(
-                "hidden"
-            );
-
-            themeOpen.classList.add(
-                "visible"
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   COUNTDOWN
-   7 OCTOBER 2026 - 7:00 PM
-========================================================= */
-
-const weddingDate =
-    new Date(
-        "October 7, 2026 19:00:00"
-    ).getTime();
-
-
-function updateCountdown() {
-
-    const daysElement =
+    const rsvpModal =
         document.getElementById(
-            "days"
+            "rsvpModal"
         );
 
-    const hoursElement =
-        document.getElementById(
-            "hours"
-        );
 
-    const minutesElement =
+    const rsvpForm =
         document.getElementById(
-            "minutes"
-        );
-
-    const secondsElement =
-        document.getElementById(
-            "seconds"
+            "rsvpForm"
         );
 
 
     if (
-        !daysElement ||
-        !hoursElement ||
-        !minutesElement ||
-        !secondsElement
+        rsvpModal
     ) {
 
-        return;
+        rsvpModal.addEventListener(
+            "click",
+            function (
+                event
+            ) {
+
+                if (
+                    event.target ===
+                    rsvpModal
+                ) {
+
+                    closeRSVP();
+
+                }
+
+            }
+        );
 
     }
-
-
-    const now =
-        new Date().getTime();
-
-
-    const difference =
-        weddingDate -
-        now;
 
 
     if (
-        difference <= 0
+        rsvpForm
     ) {
 
-        daysElement.textContent =
-            "00";
-
-        hoursElement.textContent =
-            "00";
-
-        minutesElement.textContent =
-            "00";
-
-        secondsElement.textContent =
-            "00";
-
-        return;
+        rsvpForm.addEventListener(
+            "submit",
+            submitRSVP
+        );
 
     }
 
 
-    const days =
-        Math.floor(
-            difference /
-            (
-                1000 *
-                60 *
-                60 *
-                24
-            )
-        );
+    window.showRSVP =
+        showRSVP;
 
 
-    const hours =
-        Math.floor(
-            (
-                difference %
-                (
-                    1000 *
-                    60 *
-                    60 *
-                    24
-                )
-            ) /
-            (
-                1000 *
-                60 *
-                60
-            )
-        );
-
-
-    const minutes =
-        Math.floor(
-            (
-                difference %
-                (
-                    1000 *
-                    60 *
-                    60
-                )
-            ) /
-            (
-                1000 *
-                60
-            )
-        );
-
-
-    const seconds =
-        Math.floor(
-            (
-                difference %
-                (
-                    1000 *
-                    60
-                )
-            ) /
-            1000
-        );
-
-
-    daysElement.textContent =
-        String(days)
-            .padStart(
-                2,
-                "0"
-            );
-
-
-    hoursElement.textContent =
-        String(hours)
-            .padStart(
-                2,
-                "0"
-            );
-
-
-    minutesElement.textContent =
-        String(minutes)
-            .padStart(
-                2,
-                "0"
-            );
-
-
-    secondsElement.textContent =
-        String(seconds)
-            .padStart(
-                2,
-                "0"
-            );
+    window.closeRSVP =
+        closeRSVP;
 
 }
 
 
-updateCountdown();
-
-
-setInterval(
-    updateCountdown,
-    1000
-);
-
-
 /* =========================================================
-   RSVP MODAL
+   SHOW RSVP
 ========================================================= */
-
-const rsvpModal =
-    document.getElementById(
-        "rsvpModal"
-    );
-
-const rsvpForm =
-    document.getElementById(
-        "rsvpForm"
-    );
-
 
 function showRSVP() {
 
-    if (!rsvpModal) {
-        return;
+    const modal =
+        document.getElementById(
+            "rsvpModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.add(
+            "show"
+        );
+
     }
-
-
-    rsvpModal.classList.add(
-        "show"
-    );
 
 }
 
+
+/* =========================================================
+   CLOSE RSVP
+========================================================= */
 
 function closeRSVP() {
 
-    if (!rsvpModal) {
+    const modal =
+        document.getElementById(
+            "rsvpModal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SUBMIT RSVP
+========================================================= */
+
+async function submitRSVP(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const form =
+        event.currentTarget;
+
+
+    const nameInput =
+        form.querySelector(
+            'input[name="name"]'
+        );
+
+
+    const guestsInput =
+        form.querySelector(
+            'input[name="guests"]'
+        );
+
+
+    const attendanceInput =
+        form.querySelector(
+            'select[name="attendance"]'
+        );
+
+
+    const messageInput =
+        form.querySelector(
+            "textarea"
+        );
+
+
+    const name =
+        nameInput
+            ? nameInput.value.trim()
+            : "";
+
+
+    const guests =
+        guestsInput
+            ? guestsInput.value.trim()
+            : "";
+
+
+    const attendance =
+        attendanceInput
+            ? attendanceInput.value
+            : "";
+
+
+    const message =
+        messageInput
+            ? messageInput.value.trim()
+            : "";
+
+
+    if (
+        !name ||
+        !guests ||
+        !attendance ||
+        !message
+    ) {
+
+        alert(
+            "Please fill in all fields ❤️"
+        );
+
         return;
+
     }
 
 
-    rsvpModal.classList.remove(
-        "show"
-    );
-
-}
-
-
-window.showRSVP =
-    showRSVP;
-
-window.closeRSVP =
-    closeRSVP;
+    const guestNumber =
+        Number(
+            guests
+        );
 
 
-if (rsvpModal) {
+    if (
+        !Number.isInteger(
+            guestNumber
+        ) ||
+        guestNumber < 1 ||
+        guestNumber > 20
+    ) {
 
-    rsvpModal.addEventListener(
-        "click",
-        event => {
+        alert(
+            "Please enter a valid number of guests."
+        );
 
-            if (
-                event.target ===
-                rsvpModal
-            ) {
+        return;
 
-                closeRSVP();
+    }
 
-            }
+
+    const submitButton =
+        form.querySelector(
+            'button[type="submit"]'
+        );
+
+
+    if (submitButton) {
+
+        submitButton.disabled =
+            true;
+
+        submitButton.textContent =
+            "SENDING...";
+
+    }
+
+
+    try {
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from(
+                    "wedding_messages"
+                )
+                .insert({
+
+                    name:
+                        name,
+
+                    attendance:
+                        attendance,
+
+                    guests:
+                        guestNumber,
+
+                    message:
+                        message
+
+                });
+
+
+        if (error) {
+
+            throw error;
 
         }
-    );
 
-}
 
+        alert(
+            "Thank you! Your message has been added to our invitation book. ❤️"
+        );
 
-/* =========================================================
-   RSVP SUBMISSION
-========================================================= */
 
-if (rsvpForm) {
+        form.reset();
 
-    rsvpForm.addEventListener(
-        "submit",
-        async event => {
 
-            event.preventDefault();
+        closeRSVP();
 
 
-            const nameInput =
-                rsvpForm.querySelector(
-                    'input[name="name"]'
-                );
+        await loadGuestMessages();
 
+    }
 
-            const guestsInput =
-                rsvpForm.querySelector(
-                    'input[name="guests"]'
-                );
+    catch (error) {
 
+        console.error(
+            "Supabase RSVP error:",
+            error
+        );
 
-            const attendanceInput =
-                rsvpForm.querySelector(
-                    'select[name="attendance"]'
-                );
 
+        alert(
+            "Sorry, we couldn't save your RSVP. Please try again. ❤️"
+        );
 
-            const messageInput =
-                rsvpForm.querySelector(
-                    "textarea"
-                );
+    }
 
+    finally {
 
-            /*
-               Fallback for forms that
-               don't have name attributes.
-            */
+        if (submitButton) {
 
-            const inputs =
-                rsvpForm.querySelectorAll(
-                    "input"
-                );
+            submitButton.disabled =
+                false;
 
-
-            const name =
-                nameInput
-                    ? nameInput.value.trim()
-                    : (
-                        inputs[0]
-                            ? inputs[0].value.trim()
-                            : ""
-                    );
-
-
-            const guests =
-                guestsInput
-                    ? guestsInput.value.trim()
-                    : (
-                        inputs[1]
-                            ? inputs[1].value.trim()
-                            : ""
-                    );
-
-
-            const attendance =
-                attendanceInput
-                    ? attendanceInput.value
-                    : "";
-
-
-            const message =
-                messageInput
-                    ? messageInput.value.trim()
-                    : "";
-
-
-            if (
-                !name ||
-                !attendance ||
-                !guests ||
-                !message
-            ) {
-
-                alert(
-                    "Please fill in all fields ❤️"
-                );
-
-                return;
-
-            }
-
-
-            const guestNumber =
-                Number(
-                    guests
-                );
-
-
-            if (
-                !Number.isInteger(
-                    guestNumber
-                ) ||
-                guestNumber < 1 ||
-                guestNumber > 20
-            ) {
-
-                alert(
-                    "Please enter a valid number of guests."
-                );
-
-                return;
-
-            }
-
-
-            const submitButton =
-                rsvpForm.querySelector(
-                    'button[type="submit"]'
-                );
-
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.textContent =
-                    "SENDING...";
-
-            }
-
-
-            try {
-
-                const {
-                    error
-                } =
-                    await supabaseClient
-                        .from(
-                            "wedding_messages"
-                        )
-                        .insert({
-
-                            name:
-                                name,
-
-                            attendance:
-                                attendance,
-
-                            guests:
-                                guestNumber,
-
-                            message:
-                                message
-
-                        });
-
-
-                if (error) {
-
-                    throw error;
-
-                }
-
-
-                alert(
-                    "Thank you! Your message has been added to our invitation book. ❤️"
-                );
-
-
-                rsvpForm.reset();
-
-
-                closeRSVP();
-
-
-                /*
-                   Reload the book so
-                   the new message appears.
-                */
-
-                await loadGuestMessages();
-
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Supabase RSVP error:",
-                    error
-                );
-
-
-                alert(
-                    "Sorry, we couldn't save your RSVP. Please try again. ❤️"
-                );
-
-            }
-
-            finally {
-
-                if (submitButton) {
-
-                    submitButton.disabled =
-                        false;
-
-                    submitButton.textContent =
-                        "SEND RSVP";
-
-                }
-
-            }
+            submitButton.textContent =
+                "SEND RSVP";
 
         }
-    );
+
+    }
 
 }
 
 
 /* =========================================================
-   REAL WEDDING INVITATION BOOK
+   INVITATION BOOK
 ========================================================= */
 
-const realBook = document.getElementById("realBook");
-const bookCover = document.getElementById("bookCover");
-const bookToggleButton = document.getElementById("bookToggleButton");
-const bookPages = document.getElementById("bookPages");
+let realBook = null;
 
-const leftPage = document.getElementById("leftPage");
-const rightPage = document.getElementById("rightPage");
+let bookCover = null;
 
-const leftMessage = document.getElementById("leftMessage");
-const rightMessage = document.getElementById("rightMessage");
+let bookToggleButton = null;
 
-const leftName = document.getElementById("leftName");
-const rightName = document.getElementById("rightName");
+let bookPages = null;
 
-const leftDate = document.getElementById("leftDate");
-const rightDate = document.getElementById("rightDate");
+let leftPage = null;
 
-const previousPage = document.getElementById("previousPage");
-const nextPage = document.getElementById("nextPage");
+let rightPage = null;
 
-const currentPage = document.getElementById("currentPage");
-const totalPages = document.getElementById("totalPages");
+let leftMessage = null;
 
-const closeBookButton =
-    document.getElementById("closeBookButton");
+let rightMessage = null;
 
-const bookCloseControl =
-    document.getElementById("bookCloseControl");
+let leftName = null;
 
+let rightName = null;
 
-/* =========================================================
-   BOOK STATE
-========================================================= */
+let leftDate = null;
+
+let rightDate = null;
+
+let previousPage = null;
+
+let nextPage = null;
+
+let currentPage = null;
+
+let totalPages = null;
+
+let closeBookButton = null;
+
+let bookCloseControl = null;
 
 let guestBookMessages = [];
 
@@ -1400,152 +2042,469 @@ let bookIsTurning = false;
 
 
 /* =========================================================
-   DATE FORMAT
+   INITIALIZE BOOK
 ========================================================= */
 
-function formatBookDate(date) {
+function initializeBook() {
 
-    if (!date) {
-        return "07 • 10 • 2026";
-    }
-
-    const parsedDate = new Date(date);
-
-    if (Number.isNaN(parsedDate.getTime())) {
-        return "07 • 10 • 2026";
-    }
-
-    return parsedDate.toLocaleDateString("en-GB");
-}
-
-
-/* =========================================================
-   UPDATE BOOK CONTROLS
-========================================================= */
-
-function updateBookControls() {
-
-    const total =
-        Math.max(
-            1,
-            guestBookMessages.length
+    realBook =
+        document.getElementById(
+            "realBook"
         );
 
 
-    if (currentPage) {
+    bookCover =
+        document.getElementById(
+            "bookCover"
+        );
 
-        currentPage.textContent =
-            Math.min(
-                bookIndex + 1,
-                total
-            );
+
+    bookToggleButton =
+        document.getElementById(
+            "bookToggleButton"
+        );
+
+
+    bookPages =
+        document.getElementById(
+            "bookPages"
+        );
+
+
+    leftPage =
+        document.getElementById(
+            "leftPage"
+        );
+
+
+    rightPage =
+        document.getElementById(
+            "rightPage"
+        );
+
+
+    leftMessage =
+        document.getElementById(
+            "leftMessage"
+        );
+
+
+    rightMessage =
+        document.getElementById(
+            "rightMessage"
+        );
+
+
+    leftName =
+        document.getElementById(
+            "leftName"
+        );
+
+
+    rightName =
+        document.getElementById(
+            "rightName"
+        );
+
+
+    leftDate =
+        document.getElementById(
+            "leftDate"
+        );
+
+
+    rightDate =
+        document.getElementById(
+            "rightDate"
+        );
+
+
+    previousPage =
+        document.getElementById(
+            "previousPage"
+        );
+
+
+    nextPage =
+        document.getElementById(
+            "nextPage"
+        );
+
+
+    currentPage =
+        document.getElementById(
+            "currentPage"
+        );
+
+
+    totalPages =
+        document.getElementById(
+            "totalPages"
+        );
+
+
+    closeBookButton =
+        document.getElementById(
+            "closeBookButton"
+        );
+
+
+    bookCloseControl =
+        document.getElementById(
+            "bookCloseControl"
+        );
+
+
+    /* =====================================================
+       APPLY BOOK CONFIG
+    ===================================================== */
+
+    applyBookData();
+
+
+    /* =====================================================
+       OPEN
+    ===================================================== */
+
+    if (
+        bookToggleButton
+    ) {
+
+        bookToggleButton.addEventListener(
+            "click",
+            function (
+                event
+            ) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                openBook();
+
+            }
+        );
 
     }
 
 
-    if (totalPages) {
+    /* =====================================================
+       CLOSE
+    ===================================================== */
 
-        totalPages.textContent =
-            total;
+    if (
+        closeBookButton
+    ) {
+
+        closeBookButton.addEventListener(
+            "click",
+            function (
+                event
+            ) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                closeBook();
+
+            }
+        );
 
     }
 
 
-    if (previousPage) {
+    /* =====================================================
+       NEXT
+    ===================================================== */
 
-        previousPage.disabled =
-            bookIndex <= 0;
+    if (
+        nextPage
+    ) {
+
+        nextPage.addEventListener(
+            "click",
+            function () {
+
+                turnBookPage(
+                    "next"
+                );
+
+            }
+        );
 
     }
 
 
-    if (nextPage) {
+    /* =====================================================
+       PREVIOUS
+    ===================================================== */
 
-        nextPage.disabled =
-            bookIndex + 2 >=
-            guestBookMessages.length;
+    if (
+        previousPage
+    ) {
+
+        previousPage.addEventListener(
+            "click",
+            function () {
+
+                turnBookPage(
+                    "previous"
+                );
+
+            }
+        );
 
     }
+
+
+    /* =====================================================
+       MOBILE SWIPE
+    ===================================================== */
+
+    initializeBookSwipe();
+
+
+    /* =====================================================
+       INITIAL DATA
+    ===================================================== */
+
+    updateBookPages();
+
+
+    loadGuestMessages();
 
 }
 
 
 /* =========================================================
-   UPDATE BOOK CONTENT
+   APPLY BOOK CONFIGURATION
 ========================================================= */
 
-function updateBookPages() {
+function applyBookData() {
 
-    const left =
-        guestBookMessages[bookIndex];
+    /* =====================================================
+       BOOK COVER — SMALL TITLE
+    ===================================================== */
 
-    const right =
-        guestBookMessages[bookIndex + 1];
+    const bookCoverSmallTitle =
+        document.getElementById(
+            "bookCoverSmallTitle"
+        );
 
+    if (bookCoverSmallTitle) {
 
-    /* LEFT PAGE */
-
-    if (leftMessage) {
-
-        leftMessage.textContent =
-            left?.message ||
-            "Our story is filled with love, laughter, and beautiful memories.";
-
-    }
-
-
-    if (leftName) {
-
-        leftName.textContent =
-            left
-                ? `— ${left.name || "Guest"}`
-                : "— Mohamed & Sara";
+        bookCoverSmallTitle.textContent =
+            WEDDING.book.smallTitle;
 
     }
 
 
-    if (leftDate) {
+    /* =====================================================
+       BOOK COVER — TITLE
+    ===================================================== */
 
-        leftDate.textContent =
-            formatBookDate(
-                left?.created_at
-            );
+    const bookCoverTitle =
+        document.getElementById(
+            "bookCoverTitle"
+        );
+
+    if (bookCoverTitle) {
+
+        bookCoverTitle.textContent =
+            WEDDING.book.title;
 
     }
 
 
-    /* RIGHT PAGE */
+    /* =====================================================
+       BOOK COVER — COUPLE NAMES
+    ===================================================== */
+
+    const bookCoverNames =
+        document.getElementById(
+            "bookCoverNames"
+        );
+
+    if (bookCoverNames) {
+
+        bookCoverNames.textContent =
+            `${WEDDING.couple.groom} & ` +
+            `${WEDDING.couple.bride}`;
+
+    }
+
+
+    /* =====================================================
+       BOOK COVER — DATE
+    ===================================================== */
+
+    const bookCoverDate =
+        document.getElementById(
+            "bookCoverDate"
+        );
+
+    if (bookCoverDate) {
+
+        bookCoverDate.textContent =
+            `${WEDDING.date.day} • ` +
+            `${getMonthNumber(WEDDING.date.month)} • ` +
+            `${WEDDING.date.year}`;
+
+    }
+
+
+    /* =====================================================
+       BOOK INTRODUCTION
+    ===================================================== */
+
+    const bookIntro =
+        document.getElementById(
+            "guestBookIntro"
+        );
+
+    if (bookIntro) {
+
+        bookIntro.textContent =
+            WEDDING.book.introduction;
+
+    }
+
+
+    /* =====================================================
+       LEFT PAGE — GREETING
+    ===================================================== */
+
+    const leftGreeting =
+        document.getElementById(
+            "leftGreeting"
+        );
+
+    if (leftGreeting) {
+
+        leftGreeting.textContent =
+            WEDDING.book.greeting;
+
+    }
+
+
+    /* =====================================================
+       RIGHT PAGE — GREETING
+    ===================================================== */
+
+    const rightGreeting =
+        document.getElementById(
+            "rightGreeting"
+        );
+
+    if (rightGreeting) {
+
+        rightGreeting.textContent =
+            WEDDING.book.greeting;
+
+    }
+
+
+    /* =====================================================
+       EMPTY / DEFAULT RIGHT MESSAGE
+    ===================================================== */
 
     if (rightMessage) {
 
         rightMessage.textContent =
-            right?.message ||
-            "Leave us a beautiful message to make our guest book complete. ❤️";
+            WEDDING.book.emptyMessage;
 
     }
 
+
+    /* =====================================================
+       EMPTY / DEFAULT RIGHT NAME
+    ===================================================== */
 
     if (rightName) {
 
         rightName.textContent =
-            right
-                ? `— ${right.name || "Guest"}`
-                : "— Your message";
+            WEDDING.book.emptyName;
 
     }
 
 
-    if (rightDate) {
+    /* =====================================================
+       PAGE DATES
+    ===================================================== */
 
-        rightDate.textContent =
-            formatBookDate(
-                right?.created_at
-            );
+    const pageDates =
+        document.querySelectorAll(
+            ".page-date"
+        );
+
+    pageDates.forEach(
+        function (element) {
+
+            /*
+             * Use the wedding date automatically
+             * instead of maintaining another date
+             * inside WEDDING.book.
+             */
+
+            element.textContent =
+                `${WEDDING.date.day} • ` +
+                `${getMonthNumber(WEDDING.date.month)} • ` +
+                `${WEDDING.date.year}`;
+
+        }
+    );
+
+
+    /* =====================================================
+       OPEN BOOK BUTTON
+    ===================================================== */
+
+    const openButton =
+        document.getElementById(
+            "bookToggleButton"
+        );
+
+    if (openButton) {
+
+        openButton.textContent =
+            WEDDING.book.openButton;
 
     }
 
 
-    updateBookControls();
+    /* =====================================================
+       CLOSE BOOK BUTTON
+    ===================================================== */
+
+    const closeButton =
+        document.getElementById(
+            "closeBookButton"
+        );
+
+    if (closeButton) {
+
+        closeButton.textContent =
+            WEDDING.book.closeButton;
+
+    }
+
+
+    /* =====================================================
+       WRITE IN OUR BOOK BUTTON
+    ===================================================== */
+
+    const writeButton =
+        document.getElementById(
+            "writeBookButton"
+        );
+
+    if (writeButton) {
+
+        writeButton.textContent =
+            WEDDING.book.writeButton;
+
+    }
 
 }
 
@@ -1561,46 +2520,55 @@ function openBook() {
         !bookCover ||
         bookIsOpen
     ) {
+
         return;
+
     }
 
 
-    console.log("OPEN BOOK CLICKED");
+    console.log(
+        "OPEN BOOK CLICKED"
+    );
 
 
-    bookIndex = 0;
+    bookIsOpen =
+        true;
 
-    bookIsOpen = true;
+
+    bookIndex =
+        0;
 
 
     updateBookPages();
 
 
-    /* Open cover */
-
-    bookCover.classList.add("open");
-
-
-    /* Show pages */
-
-    realBook.classList.add("book-is-open");
+    bookCover.classList.add(
+        "open"
+    );
 
 
-    /* Show close button */
+    realBook.classList.add(
+        "book-is-open"
+    );
 
-    if (bookCloseControl) {
 
-        bookCloseControl.classList.add("show");
+    if (
+        bookCloseControl
+    ) {
+
+        bookCloseControl.classList.add(
+            "show"
+        );
 
     }
 
 
-    /* Update button */
-
-    if (bookToggleButton) {
+    if (
+        bookToggleButton
+    ) {
 
         bookToggleButton.textContent =
-            "BOOK OPENED";
+            WEDDING.book.closeButton;
 
     }
 
@@ -1618,48 +2586,55 @@ function closeBook() {
         !bookCover ||
         !bookIsOpen
     ) {
+
         return;
-    }
-
-
-    console.log("CLOSE BOOK CLICKED");
-
-
-    bookIsOpen = false;
-
-
-    /* Close cover */
-
-    bookCover.classList.remove("open");
-
-
-    /* Hide pages */
-
-    realBook.classList.remove("book-is-open");
-
-
-    /* Hide close button */
-
-    if (bookCloseControl) {
-
-        bookCloseControl.classList.remove("show");
 
     }
 
 
-    /* Restore button */
+    console.log(
+        "CLOSE BOOK CLICKED"
+    );
 
-    if (bookToggleButton) {
+
+    bookIsOpen =
+        false;
+
+
+    bookCover.classList.remove(
+        "open"
+    );
+
+
+    realBook.classList.remove(
+        "book-is-open"
+    );
+
+
+    if (
+        bookCloseControl
+    ) {
+
+        bookCloseControl.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    if (
+        bookToggleButton
+    ) {
 
         bookToggleButton.textContent =
-            "OPEN OUR BOOK";
+            WEDDING.book.openButton;
 
     }
 
 
-    /* Return to first page */
+    bookIndex =
+        0;
 
-    bookIndex = 0;
 
     updateBookPages();
 
@@ -1667,89 +2642,281 @@ function closeBook() {
 
 
 /* =========================================================
-   OPEN BUTTON
+   UPDATE BOOK CONTROLS
 ========================================================= */
 
-if (bookToggleButton) {
+function updateBookControls() {
 
-    bookToggleButton.addEventListener(
-        "click",
-        function (event) {
+    const total =
+        Math.max(
+            1,
+            guestBookMessages.length
+        );
 
-            event.preventDefault();
-
-            event.stopPropagation();
-
-            openBook();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE BUTTON
-========================================================= */
-
-if (closeBookButton) {
-
-    closeBookButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-            closeBook();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PAGE TURN
-========================================================= */
-
-function turnBookPage(direction) {
 
     if (
-        !bookIsOpen ||
-        bookIsTurning ||
-        !leftPage ||
-        !rightPage
+        currentPage
     ) {
-        return;
+
+        currentPage.textContent =
+            Math.min(
+                bookIndex + 1,
+                total
+            );
+
     }
 
 
-    /* NEXT */
+    if (
+        totalPages
+    ) {
 
-    if (direction === "next") {
+        totalPages.textContent =
+            total;
+
+    }
+
+
+    if (
+        previousPage
+    ) {
+
+        previousPage.disabled =
+            bookIndex <= 0;
+
+    }
+
+
+    if (
+        nextPage
+    ) {
+
+        nextPage.disabled =
+            bookIndex + 2 >=
+            guestBookMessages.length;
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE BOOK PAGES
+========================================================= */
+
+function updateBookPages() {
+
+    const left =
+        guestBookMessages[
+            bookIndex
+        ];
+
+
+    const right =
+        guestBookMessages[
+            bookIndex + 1
+        ];
+
+
+    /* =====================================================
+       LEFT PAGE
+    ===================================================== */
+
+    if (
+        leftMessage
+    ) {
+
+        leftMessage.textContent =
+
+            left?.message ||
+
+            WEDDING.book.emptyMessage;
+
+    }
+
+
+    if (
+        leftName
+    ) {
+
+        leftName.textContent =
+
+            left
+
+                ? `— ${left.name || "Guest"}`
+
+                : `— ${WEDDING.couple.groom} & ` +
+                  `${WEDDING.couple.bride}`;
+
+    }
+
+
+    if (
+        leftDate
+    ) {
+
+        leftDate.textContent =
+
+            left
+
+                ? formatBookDate(
+                    left.created_at
+                )
+
+                : WEDDING.book.date;
+
+    }
+
+
+    /* =====================================================
+       RIGHT PAGE
+    ===================================================== */
+
+    if (
+        rightMessage
+    ) {
+
+        rightMessage.textContent =
+
+            right?.message ||
+
+            WEDDING.book.emptyMessage;
+
+    }
+
+
+    if (
+        rightName
+    ) {
+
+        rightName.textContent =
+
+            right
+
+                ? `— ${right.name || "Guest"}`
+
+                : WEDDING.book.emptyName;
+
+    }
+
+
+    if (
+        rightDate
+    ) {
+
+        rightDate.textContent =
+
+            right
+
+                ? formatBookDate(
+                    right.created_at
+                )
+
+                : WEDDING.book.date;
+
+    }
+
+
+    updateBookControls();
+
+}
+
+
+/* =========================================================
+   FORMAT BOOK DATE
+========================================================= */
+
+function formatBookDate(
+    date
+) {
+
+    if (!date) {
+
+        return WEDDING.book.date;
+
+    }
+
+
+    const parsedDate =
+        new Date(
+            date
+        );
+
+
+    if (
+        Number.isNaN(
+            parsedDate.getTime()
+        )
+    ) {
+
+        return WEDDING.book.date;
+
+    }
+
+
+    return parsedDate.toLocaleDateString(
+        "en-GB"
+    );
+
+}
+
+
+/* =========================================================
+   TURN PAGE
+========================================================= */
+
+function turnBookPage(
+    direction
+) {
+
+    if (
+        !bookIsOpen ||
+        bookIsTurning
+    ) {
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       NEXT
+    ===================================================== */
+
+    if (
+        direction === "next"
+    ) {
 
         if (
             bookIndex + 2 >=
             guestBookMessages.length
         ) {
+
             return;
+
         }
 
 
-        bookIsTurning = true;
+        bookIsTurning =
+            true;
 
 
-        rightPage.classList.add(
-            "turn-next"
-        );
+        if (
+            rightPage
+        ) {
+
+            rightPage.classList.add(
+                "turn-next"
+            );
+
+        }
 
 
         setTimeout(
             function () {
 
-                bookIndex += 2;
+                bookIndex +=
+                    2;
 
                 updateBookPages();
 
@@ -1761,11 +2928,19 @@ function turnBookPage(direction) {
         setTimeout(
             function () {
 
-                rightPage.classList.remove(
-                    "turn-next"
-                );
+                if (
+                    rightPage
+                ) {
 
-                bookIsTurning = false;
+                    rightPage.classList.remove(
+                        "turn-next"
+                    );
+
+                }
+
+
+                bookIsTurning =
+                    false;
 
             },
             1100
@@ -1777,255 +2952,76 @@ function turnBookPage(direction) {
     }
 
 
-    /* PREVIOUS */
-
-    if (direction === "previous") {
-
-        if (bookIndex <= 0) {
-            return;
-        }
-
-
-        bookIsTurning = true;
-
-
-        leftPage.classList.add(
-            "turn-previous"
-        );
-
-
-        setTimeout(
-            function () {
-
-                bookIndex -= 2;
-
-                updateBookPages();
-
-            },
-            550
-        );
-
-
-        setTimeout(
-            function () {
-
-                leftPage.classList.remove(
-                    "turn-previous"
-                );
-
-                bookIsTurning = false;
-
-            },
-            1100
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   NEXT BUTTON
-========================================================= */
-
-if (nextPage) {
-
-    nextPage.addEventListener(
-        "click",
-        function () {
-
-            turnBookPage("next");
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PREVIOUS BUTTON
-========================================================= */
-
-if (previousPage) {
-
-    previousPage.addEventListener(
-        "click",
-        function () {
-
-            turnBookPage("previous");
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOAD GUEST MESSAGES
-========================================================= */
-
-async function loadGuestMessages() {
-
-    try {
-
-        const {
-            data,
-            error
-        } = await supabaseClient
-            .from("wedding_messages")
-            .select(
-                "id,name,attendance,guests,message,created_at"
-            )
-            .order(
-                "created_at",
-                {
-                    ascending: false
-                }
-            );
-
-
-        if (error) {
-
-            console.error(
-                "Error loading guest book:",
-                error
-            );
-
-            guestBookMessages = [];
-
-            updateBookPages();
-
-            return;
-        }
-
-
-        guestBookMessages =
-            data || [];
-
-
-        bookIndex = 0;
-
-
-        updateBookPages();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Unexpected guest book error:",
-            error
-        );
-
-        guestBookMessages = [];
-
-        updateBookPages();
-
-    }
-
-}
-
-
-/* =========================================================
-   INITIAL BOOK STATE
-========================================================= */
-
-updateBookPages();
-
-loadGuestMessages();
-
-/* =========================================================
-   MOBILE SWIPE
-========================================================= */
-
-let touchStartX = 0;
-let touchEndX = 0;
-
-if (realBook) {
-
-    realBook.addEventListener(
-        "touchstart",
-        function (event) {
-
-            if (!bookIsOpen) {
-                return;
-            }
-
-            touchStartX =
-                event.touches[0].clientX;
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    realBook.addEventListener(
-        "touchend",
-        function (event) {
-
-            if (!bookIsOpen) {
-                return;
-            }
-
-            touchEndX =
-                event.changedTouches[0].clientX;
-
-            handleBookSwipe();
-
-        },
-        {
-            passive: true
-        }
-    );
-
-}
-
-
-/* =========================================================
-   HANDLE SWIPE
-========================================================= */
-
-function handleBookSwipe() {
-
-    const swipeDistance =
-        touchEndX - touchStartX;
-
-
-    /* Ignore very small movements */
+    /* =====================================================
+       PREVIOUS
+    ===================================================== */
 
     if (
-        Math.abs(swipeDistance) < 50
+        direction === "previous"
     ) {
 
-        return;
+        if (
+            bookIndex <= 0
+        ) {
 
-    }
+            return;
 
-
-    /* Swipe LEFT
-       → Next page
-    */
-
-    if (swipeDistance < 0) {
-
-        turnBookPage("next");
-
-    }
+        }
 
 
-    /* Swipe RIGHT
-       → Previous page
-    */
+        bookIsTurning =
+            true;
 
-    else {
 
-        turnBookPage("previous");
+        if (
+            leftPage
+        ) {
+
+            leftPage.classList.add(
+                "turn-previous"
+            );
+
+        }
+
+
+        setTimeout(
+            function () {
+
+                bookIndex -=
+                    2;
+
+                updateBookPages();
+
+            },
+            550
+        );
+
+
+        setTimeout(
+            function () {
+
+                if (
+                    leftPage
+                ) {
+
+                    leftPage.classList.remove(
+                        "turn-previous"
+                    );
+
+                }
+
+
+                bookIsTurning =
+                    false;
+
+            },
+            1100
+        );
 
     }
 
 }
+
 
 /* =========================================================
    LOAD GUEST MESSAGES
@@ -2055,7 +3051,9 @@ async function loadGuestMessages() {
                 );
 
 
-        if (error) {
+        if (
+            error
+        ) {
 
             console.error(
                 "Error loading guest book:",
@@ -2087,11 +3085,214 @@ async function loadGuestMessages() {
 
     }
 
-    catch (error) {
+    catch (
+        error
+    ) {
 
         console.error(
             "Unexpected guest book error:",
             error
+        );
+
+
+        guestBookMessages =
+            [];
+
+
+        updateBookPages();
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE SWIPE
+========================================================= */
+
+function initializeBookSwipe() {
+
+    if (
+        !realBook
+    ) {
+
+        return;
+
+    }
+
+
+    let touchStartX =
+        0;
+
+
+    let touchStartY =
+        0;
+
+
+    realBook.addEventListener(
+        "touchstart",
+        function (
+            event
+        ) {
+
+            if (
+                !bookIsOpen
+            ) {
+
+                return;
+
+            }
+
+
+            const touch =
+                event.touches[0];
+
+
+            touchStartX =
+                touch.clientX;
+
+
+            touchStartY =
+                touch.clientY;
+
+        },
+        {
+            passive:
+                true
+        }
+    );
+
+
+    realBook.addEventListener(
+        "touchend",
+        function (
+            event
+        ) {
+
+            if (
+                !bookIsOpen
+            ) {
+
+                return;
+
+            }
+
+
+            const touch =
+                event.changedTouches[0];
+
+
+            const touchEndX =
+                touch.clientX;
+
+
+            const touchEndY =
+                touch.clientY;
+
+
+            const differenceX =
+                touchEndX -
+                touchStartX;
+
+
+            const differenceY =
+                touchEndY -
+                touchStartY;
+
+
+            /*
+             * Ignore vertical scrolling.
+             */
+
+            if (
+                Math.abs(
+                    differenceY
+                ) >
+                Math.abs(
+                    differenceX
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * Minimum swipe distance.
+             */
+
+            if (
+                Math.abs(
+                    differenceX
+                ) < 50
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * LEFT → NEXT
+             */
+
+            if (
+                differenceX < 0
+            ) {
+
+                turnBookPage(
+                    "next"
+                );
+
+            }
+
+
+            /*
+             * RIGHT → PREVIOUS
+             */
+
+            else {
+
+                turnBookPage(
+                    "previous"
+                );
+
+            }
+
+        },
+        {
+            passive:
+                true
+        }
+    );
+
+}
+
+
+/* =========================================================
+   WRITE IN OUR BOOK
+========================================================= */
+
+function initializeWriteBookButton() {
+
+    const writeBookButton =
+        document.getElementById(
+            "writeBookButton"
+        );
+
+
+    if (
+        writeBookButton
+    ) {
+
+        writeBookButton.addEventListener(
+            "click",
+            function () {
+
+                showRSVP();
+
+            }
         );
 
     }
@@ -2100,103 +3301,101 @@ async function loadGuestMessages() {
 
 
 /* =========================================================
-   INITIAL BOOK LOAD
-========================================================= */
-
-loadGuestMessages();
-
-
-/* =========================================================
    SCROLL REVEAL
 ========================================================= */
 
-const animatedSections =
-    document.querySelectorAll(
-        ".story," +
-        ".details," +
-        ".location," +
-        ".countdown-section," +
-        ".gallery," +
-        ".rsvp," +
-        ".guest-book," +
-        ".footer"
-    );
+function initializeScrollReveal() {
 
+    const animatedSections =
+        document.querySelectorAll(
 
-if (
-    "IntersectionObserver"
-    in window
-) {
+            ".story," +
 
-    const sectionObserver =
-        new IntersectionObserver(
-            entries => {
+            ".details," +
 
-                entries.forEach(
-                    entry => {
+            ".location," +
 
-                        if (
-                            entry.isIntersecting
-                        ) {
+            ".countdown-section," +
 
-                            entry.target
-                                .classList
-                                .add(
-                                    "show"
-                                );
+            ".gallery," +
 
-                        }
+            ".rsvp," +
 
-                    }
-                );
+            ".guest-book," +
 
-            },
-            {
-                threshold:
-                    0.15
-            }
+            ".footer"
+
         );
 
 
-    animatedSections.forEach(
-        section => {
+    if (
+        "IntersectionObserver"
+        in window
+    ) {
 
-            sectionObserver.observe(
+        const observer =
+            new IntersectionObserver(
+
+                function (
+                    entries
+                ) {
+
+                    entries.forEach(
+                        function (
+                            entry
+                        ) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "show"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold:
+                        0.15
+                }
+
+            );
+
+
+        animatedSections.forEach(
+            function (
                 section
-            );
+            ) {
 
-        }
-    );
+                observer.observe(
+                    section
+                );
 
-}
+            }
+        );
 
-else {
+    }
 
-    animatedSections.forEach(
-        section => {
+    else {
 
-            section.classList.add(
-                "show"
-            );
+        animatedSections.forEach(
+            function (
+                section
+            ) {
 
-        }
-    );
+                section.classList.add(
+                    "show"
+                );
 
-}
+            }
+        );
 
-const writeBookButton =
-    document.getElementById("writeBookButton");
-
-
-if (writeBookButton) {
-
-    writeBookButton.addEventListener(
-        "click",
-        function () {
-
-            showRSVP();
-
-        }
-    );
+    }
 
 }
