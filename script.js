@@ -21,7 +21,7 @@ const WEDDING = {
 
     couple: {
 
-        groom: "hamed",
+        groom: "mohamed",
 
         bride: "Sara"
 
@@ -163,7 +163,7 @@ const WEDDING = {
             "Leave us a little message that we can keep as a memory of our special day.",
 
         greeting:
-            "Dear amed & Sara,",
+            "Dear mohamed & Sara,",
 
         emptyMessage:
             "We are waiting for your beautiful message.",
